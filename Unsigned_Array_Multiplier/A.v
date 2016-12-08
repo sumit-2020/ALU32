@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    14:25:25 12/08/2016 
+// Create Date:    17:58:18 12/02/2016 
 // Design Name: 
-// Module Name:    unsignedarraymultiplier 
+// Module Name:    A 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,11 +18,19 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module unsignedarraymultiplier (a, b, out);
-output [63:0] out;
-	input  [31:0] a;
-	input  [31:0] b;
 
-	assign out = a * b;
+// Module for Full Adder(A) 
+module A(a,b,cin,sum,cout,prop);
 
+	// a,b,cin are the three inputs
+	input a,b,cin; 
+	
+	// sum,cout	are the two outputs				
+	output sum,cout,prop;
+	
+	// assigning values to sum and cout by appropriate logic
+	xor(prop,a,b);
+	xor(sum,prop,cin);
+	assign cout = a*b+b*cin+cin*a;
+	
 endmodule
