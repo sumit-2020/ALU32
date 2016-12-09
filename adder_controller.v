@@ -1,4 +1,4 @@
-module controller(inp, cin, setA, setB, select, out, cout
+module adder_controller(inp, cin, setA, setB, select, out, cout
 	);
 
 	// Assigining ports as in/out
@@ -27,7 +27,7 @@ module controller(inp, cin, setA, setB, select, out, cout
 	carry_ripple_adder a1(numA, numB, cin, sum, cout);
 	
 	// Getting output
-	assign out = (select == 2'b00) ? sum[7:0] : 
+	assign out = (select == 2'b00d) ? sum[7:0] : 
 			((select == 2'b01) ? sum[15:8] : 
 				((select == 2'b10) ? sum[23:16] : sum[31:24]));
 	
