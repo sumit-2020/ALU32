@@ -73,8 +73,8 @@ module CIA(a,b,cin,sum,cout);
 	assign ccc2=cc4^cauxi5;
 	
 	assign sum[15:0]=sss1;
-	INCR3 incr7(sss2,cauxi1,sum[31:16],CAUX);
-	assign cout=cauxi5^CAUX;
+	INCR3 incr7(sss2,ccc1,sum[31:16],CAUX);
+	assign cout=ccc2^CAUX;
 	
 	
 	

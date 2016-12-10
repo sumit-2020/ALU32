@@ -264,8 +264,7 @@ output cout;
 	xor(sum[30], prop[31], g6_30_gen);
 	xor(sum[31], a[31]^b[31], g5_31_gen);
 
-	wire temp=prop[31]*g5_31_gen;
-	or(cout,gen[31],temp);
-
+	wire temp=(a[31]^b[31])*g5_31_gen;
+	or(cout,a[31]*b[31],temp);
 
 endmodule
