@@ -25,7 +25,7 @@ module expsummer(a,b,sum,overflow);
 	output overflow;
 	
 	assign sum=a+b;
-	assign overflow = a[7]*b[7]*(~sum[7])+(~a[7])*(~b[7])*sum[7];
+	assign overflow = (a[7]&b[7]&(~sum[7])) | ((~a[7])&(~b[7])&sum[7]);
 
 
 endmodule
