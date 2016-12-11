@@ -46,7 +46,7 @@ module LZC64(inA, Z
 	wire [3:0] inA_16or;
 	generate 
 		for(i=0; i<4; i=i+1) begin: l4
-			assign inA_16or[i] = inA[8*i + 0] |  inA[8*i + 1] |  inA[8*i + 2] |  inA[8*i + 3] |  inA[8*i + 4] |  inA[8*i + 5] |  inA[8*i + 6] |  inA[8*i + 7] |  inA[8*i + 8] |  inA[8*i + 9] |  inA[8*i + 10] |  inA[8*i + 11] |  inA[8*i + 12] |  inA[8*i + 13] |  inA[8*i + 14] |  inA[8*i + 15];
+			assign inA_16or[i] = inA[16*i + 0]| inA[16*i + 1]| inA[16*i + 2]| inA[16*i + 3]| inA[16*i + 4]| inA[16*i + 5]| inA[16*i + 6]| inA[16*i + 7]| inA[16*i + 8]| inA[16*i + 9]| inA[16*i + 10]| inA[16*i + 11]| inA[16*i + 12]| inA[16*i + 13]| inA[16*i + 14]| inA[16*i + 15];
 		end
 	endgenerate
 
@@ -56,7 +56,7 @@ module LZC64(inA, Z
 	wire [1:0] inA_32or;
 	generate
 		for(i=0; i<2; i=i+1) begin: l5
-			assign inA_32or[i] = inA[16*i + 0]| inA[16*i + 1]| inA[16*i + 2]| inA[16*i + 3]| inA[16*i + 4]| inA[16*i + 5]| inA[16*i + 6]| inA[16*i + 7]| inA[16*i + 8]| inA[16*i + 9]| inA[16*i + 10]| inA[16*i + 11]| inA[16*i + 12]| inA[16*i + 13]| inA[16*i + 14]| inA[16*i + 15]| inA[16*i + 16]| inA[16*i + 17]| inA[16*i + 18]| inA[16*i + 19]| inA[16*i + 20]| inA[16*i + 21]| inA[16*i + 22]| inA[16*i + 23]| inA[16*i + 24]| inA[16*i + 25]| inA[16*i + 26]| inA[16*i + 27]| inA[16*i + 28]| inA[16*i + 29]| inA[16*i + 30]| inA[16*i + 31];
+			assign inA_32or[i] = inA[32*i + 0] | inA[32*i + 1] | inA[32*i + 2] | inA[32*i + 3] | inA[32*i + 4] | inA[32*i + 5] | inA[32*i + 6] | inA[32*i + 7] | inA[32*i + 8] | inA[32*i + 9] | inA[32*i + 10] | inA[32*i + 11] | inA[32*i + 12] | inA[32*i + 13] | inA[32*i + 14] | inA[32*i + 15] | inA[32*i + 16] | inA[32*i + 17] | inA[32*i + 18] | inA[32*i + 19] | inA[32*i + 20] | inA[32*i + 21] | inA[32*i + 22] | inA[32*i + 23] | inA[32*i + 24] | inA[32*i + 25] | inA[32*i + 26] | inA[32*i + 27] | inA[32*i + 28] | inA[32*i + 29] | inA[32*i + 30] | inA[32*i + 31];
 		end
 	endgenerate
 	
