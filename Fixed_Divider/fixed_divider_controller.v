@@ -1,11 +1,19 @@
-module fixed_divider_controller(inA, set, unlock, select, init, clock, out
+module fixed_divider_controller(inp, set, unlock, select, init, clock, out, setled, unlockled, select0led, select1led
 	);
 
 	// Assigning ports as in/out
-	input [7:0] inA;
+	input [7:0] inp;
+	input [1:0] select;
 	input set, unlock, init, clock;
 	output [7:0] out;
-	
+	output setled,unlockled,select0led,select1led;
+
+	// Indicating LEDs
+	assign setled=set;
+	assign unlockled=unlock;
+	assign select0led=select[0];
+	assign select1led=select[1];
+
 	// Lock register
 	reg lock;
 	initial lock = 0;
@@ -13,25 +21,22 @@ module fixed_divider_controller(inA, set, unlock, select, init, clock, out
 	// Calculation register
 	reg [31:0] numA;
 	reg [15:0] numB;
-	reg [31:0] prod;
+	wire [31:0] prod;
 	initial begin
 		numA = 0;
 		numB = {16{1'b0}};
-		prod = 0;
 	end
 
 	// Selecting which output to show
-	assign out = (select == 2'b00) ? prod[7:0] :
-	              ((select == 2'b01) ? prod[15:8] :
-	               ((select == 2'b10) ? prod[23:16] : prod[31:24]));
-
+	assign out = prod[7:0];
+	//              ((select == 2'b01) ? prod[15:8] :
+	//               ((select == 2'b10) ? prod[23:16] : prod[31:24]));
 	
 	// Counting register
 	reg [2:0] counter;
 	initial counter = 3'b000;
 
 	// Getting output from the fixed divider module
-	wire [31:0] prod_n;
 	fixed_divider m1(numA, numB, init, clock, prod);
 
 	// State machine
