@@ -48,10 +48,13 @@ module fused_array_mult(expA, expB, expC, manA, manB, manC, expAns, manAns
 	wire [7:0] norm_z = (all_extra_zero == 1'b1) ? normR_z : normL_z;	
 	
 	wire [7:0] exp_out;
-	exp_summer expsum1(expA+expB, norm_z, exp_out);
+	wire infinity;
+	exp_summer expsum1(expA+expB, norm_z, exp_out, infinity);
 	
-	assign expAns = (ab_req == 1'b1) ? exp_out : expC;
-	assign manAns = (ab_req == 1'b1) ? norm_out : manC;
+	assign expAns = (infinity == 1'b1) ? {1'b0, {7{1'b1}}} : 
+						((ab_req == 1'b1) ? exp_out : expC);
+	assign manAns = (infinity == 1'b1) ? {24{1'b0}} : 
+					((ab_req == 1'b1) ? norm_out : manC);
 
 endmodule
 

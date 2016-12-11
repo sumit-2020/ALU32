@@ -18,14 +18,15 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module exp_summer(a,b,sum,overflow);
+module exp_summer(a,b,sum,overflowI, overflowZ);
 
 	input [7:0] a,b;
 	output [7:0] sum;
-	output overflow;
+	output overflowI, overflowZ;
 	
 	assign sum=a-b;
-	assign overflow = (a[7]&(~b[7])&(~sum[7])) | ((~a[7])&(b[7])&sum[7]);
+	assign overflowI = (a[7]&(~b[7])&(~sum[7]));
+	assign overflowZ = ((~a[7])&(b[7])&sum[7]);
 
 
 endmodule
