@@ -1,0 +1,46 @@
+
+
+ NET "set" CLOCK_DEDICATED_ROUTE = FALSE; 
+ NET "unlock" CLOCK_DEDICATED_ROUTE = FALSE; 
+ NET "select0led" CLOCK_DEDICATED_ROUTE = FALSE;
+ NET "select1led" CLOCK_DEDICATED_ROUTE = FALSE;
+NET "inp[0]" LOC = D22;
+NET "inp[1]" LOC = C22;
+NET "inp[2]" LOC = L21;
+NET "inp[3]" LOC = L20;
+NET "inp[4]" LOC = C18;
+NET "inp[5]" LOC = B18;
+NET "inp[6]" LOC = K22;
+NET "inp[7]" LOC = K21;
+NET "out[0]" LOC = AC22;
+NET "out[1]" LOC = AC24;
+NET "out[2]" LOC = AE22;
+NET "out[3]" LOC = AE23;
+NET "out[4]" LOC = AB23;
+NET "out[5]" LOC = AG23;
+NET "out[6]" LOC = AE24;
+NET "out[7]" LOC = AD24;
+
+
+
+NET "set" LOC = A19; 
+#north
+NET "unlock" LOC = A18; 
+#south
+NET "select[0]" LOC = H17; 
+#west
+NET "select[1]" LOC = G17; 
+#east
+
+# PlanAhead Generated physical constraints 
+
+NET "setled" LOC = AH27; 
+#north
+NET "unlockled" LOC = AE28; 
+#south
+NET "select0led" LOC = AD21; 
+#west
+NET "select1led" LOC = AE21; 
+#east
+
+NET "clk" LOC=J9 | IOSTANDARD = LVCMOS15 ;
