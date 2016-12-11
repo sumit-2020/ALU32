@@ -26,9 +26,9 @@ module fixed_divider(inDividend, inDivisor, init, clock, Quotient, Remainder
 	always @(posedge clock)
 	begin
 		if (init == 1)
-		begin
-			Dividend = {16'b0000000000000000, inDividend};
-			Q = 32'b0000000000000000000000;
+		
+			Dividend = {16{1'b0}}, inDividend};
+			Q = {32{1'b0}};
 			count = 6'b000000;
 		end
 
