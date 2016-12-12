@@ -5,13 +5,13 @@ module fused_array_mult(expA, expB, expC, manA, manB, manC, expAns, manAns
 	input [7:0] expA, expB, expC;
 	input [23:0] manA, manB, manC;
 	
-	assign expA = 8'b00000010;
-	assign expB = 8'b00000010;
-	assign expC = 8'b00000100;
+//	assign expA = 8'b00000010;
+//	assign expB = 8'b00000010;
+//	assign expC = 8'b00000100;
 	
-	assign manA = {2'b01, {22{1'b0}}};
-	assign manB = {2'b01, {22{1'b0}}};
-	assign manC = {2'b01, {22{1'b0}}};
+//	assign manA = {2'b01, {22{1'b0}}};
+//	assign manB = {2'b01, {22{1'b0}}};
+//	assign manC = {2'b01, {22{1'b0}}};
 	
 	output [7:0] expAns;
 	output [23:0] manAns;

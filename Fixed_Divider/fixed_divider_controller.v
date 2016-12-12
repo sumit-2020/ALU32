@@ -1,63 +1,70 @@
-module fixed_divider_controller(inA, set, unlock, select, init, clock, out
+module fixed_divider_controller(inp, set, unlock, sel0, sel1, init, clock, out, initLED, sel1LED, sel0LED
 	);
-
-	// Assigning ports as in/out
-	input [7:0] inA;
+	
+	// Assign pins as in/out
+	input [7:0] inp;
 	input set, unlock, init, clock;
+	input sel0, sel1;
 	output [7:0] out;
 	
-	// Lock register
-	reg lock;
-	initial lock = 0;
+	// Indicator outputs;
+	output initLED;
+	output sel0LED;
+	output sel1LED;
 	
-	// Calculation register
+	assign initLED = init;
+	assign sel0LED = sel0;
+	assign sel1LED = sel1;
+	
+	// Registers, hahaha
+	reg lock;
+	reg [2:0] ncount;
 	reg [31:0] numA;
 	reg [15:0] numB;
-	reg [31:0] prod;
-	initial begin
-		numA = 0;
+	initial begin	
+		lock = 1'b0;
+		ncount = 3'b000;
+		numA = {32{1'b0}};
 		numB = {16{1'b0}};
-		prod = 0;
 	end
-
-	// Selecting which output to show
-	assign out = (select == 2'b00) ? prod[7:0] :
-	              ((select == 2'b01) ? prod[15:8] :
-	               ((select == 2'b10) ? prod[23:16] : prod[31:24]));
-
 	
-	// Counting register
-	reg [2:0] counter;
-	initial counter = 3'b000;
+	// Magic happens here
+	wire [31:0] result;
+	wire [7:0] prod3, prod2, prod1, prod0;
+	assign prod3 = result[31:24];
+	assign prod2 = result[23:16];
+	assign prod1 = result[15:8];
+	assign prod0 = result[7:0];
+	fixed_divider m1(numA,numB,init,clock,result);
+	
+	// You see what you select
+	wire [7:0] ifsel1 = (sel0) ? prod3 : prod2;
+	wire [7:0] ifsel0 = (sel0) ? prod1 : prod0;
+	assign out = (sel1) ? ifsel1 : ifsel0;
 
-	// Getting output from the fixed divider module
-	wire [31:0] prod_n;
-	fixed_divider m1(numA, numB, init, clock, prod);
-
-	// State machine
+	// The clockwork
 	always @(posedge clock)
-	begin
-                if (set == 1 && lock == 0)
-                begin
-                        case (counter)
-                                3'b000 : numA[7:0] = inp;
-                                3'b001 : numA[15:8] = inp;
-                                3'b010 : numA[23:16] = inp;
-                                3'b011 : numA[31:24] = inp;
-                                3'b100 : numB[7:0] = inp;
-                                3'b101 : numB[15:8] = inp;
-                                //3'b110 : numB[23:16] = inp;
-                                //3'b111 : numB[31:24] = inp;
-                        endcase
+	begin 
+		if (set == 1'b1 & lock == 1'b0) 
+		begin 
+			case (ncount)
+				3'b000 : numA[7:0] = inp;
+				3'b001 : numA[15:8] = inp;
+				3'b010 : numA[23:16] = inp;
+				3'b011 : numA[31:24] = inp;
+				3'b100 : numB[7:0] = inp;
+				3'b101 : numB[15:8] = inp;
+			endcase
+			ncount = ncount + 3'b001;
+			lock = 1'b1;
+		end
 
-                        counter = counter + 3'b001;
-                        lock = 1'b1;
-                end
-
-                else if (unlock == 1)
-                begin
-                        lock = 1'b0;
-                end
+		else begin
+		if (unlock == 1'b1)
+			lock = 1'b0;
+		if (init == 1'b1)
+			ncount = 3'b000;
+		end
 	end
 
 endmodule
