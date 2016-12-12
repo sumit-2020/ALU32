@@ -22,21 +22,23 @@ NET "set" LOC = A19;
 #north
 NET "unlock" LOC = A18; 
 #south
-NET "select[0]" LOC = H17; 
+NET "sel0" LOC = H17; 
 #west
-NET "select[1]" LOC = G17; 
+NET "sel1" LOC = G17; 
 #east
 NET "init" LOC = G26; 
 #center
 
-NET "setled" LOC = AH27; 
+#NET "setled" LOC = AH27; 
 #north
-NET "unlockled" LOC = AH28; 
+#NET "unlockled" LOC = AH28; 
 #south
-NET "select0led" LOC = AD21; 
+NET "sel0LED" LOC = AD21; 
 #west
-NET "select1led" LOC = AE21; 
+NET "sel1LED" LOC = AE21; 
 #east
+NET "initLED" LOC = AP24;
+#center
 
 # PlanAhead Generated physical constraints 
 

@@ -12,11 +12,18 @@ module fixed_divider(inDividend, inDivisor, init, clock, Quotient, Remainder
 	reg [47:0] Dividend;
 	reg [31:0] Q;
 	reg [5:0] count;
+	initial begin
+		Dividend 	= {48{1'b0}};
+		Q 				= {32{1'b0}};
+		count 		= 6'b000000;
+	end
 
 	// Initialising required wires
 	wire [16:0] diff = Dividend[47:31] - {1'b0, inDivisor};
 	wire Q_n	= ~diff[16];
-	wire [16:0] Dividend_n = (diff[16]) ? Dividend[47:31] : diff;
+	wire [16:0] Dividend_n1 = (diff[16]) ? Dividend[47:31] : diff;
+	wire [47:0] Dividend_n2 = {Dividend_n1, Dividend[30:0]};
+	wire [47:0] Dividend_n = Dividend_n2 << 1'b1;
 	
 	// Assigning outputs
 	assign Quotient = Q;
@@ -34,14 +41,10 @@ module fixed_divider(inDividend, inDivisor, init, clock, Quotient, Remainder
 
 		else
 		begin
-			if (clock == 1 & count < 6'b100000)
+			if (count != 6'b100000)
 			begin
 				Q = {Q[30:0], Q_n};
-				Dividend [47:31] = Dividend_n;	
-//			end
-//			else if (clock == 0 && count < 3'b100)
-//			begin
-				Dividend = {Dividend[46:0], 1'b0};
+				Dividend = Dividend_n;	
 				count = count + 6'b000001;
 			end
 		end

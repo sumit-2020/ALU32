@@ -25,8 +25,8 @@ module floating_point_div(expA, expB, F1, F2, init, clock, expAns, FAns
 	initial begin
 		count = {5{1'b1}};
 		Q = {24{1'b0}};
-		N = {25{1'b0}};
-		D = {24{1'b0}};
+		N = {2'b01, {23{1'b0}}};
+		D = {1'b1, {23{1'b0}}};
 	end
 
 	// Next inputs of N and Q
@@ -43,11 +43,13 @@ module floating_point_div(expA, expB, F1, F2, init, clock, expAns, FAns
 			count = {5{1'b0}};
 		end
 
-		else if(clock == 1 & count != 6'b011000) begin
+		else 
+		begin if(count != 6'b011000) begin
 			Q = {Q[22:0], Q_n};
 			if (Q_n == 1'b1) N = N_n[23:0];
 			N = {N[23:0], 1'b0};
-			count = count + 6'b000001;
+			count = count + 5'b00001;
+			end
 		end
 	end
 
